@@ -1,33 +1,47 @@
 body {
   font-family: 'Everett';
-  color: white;
+  color: black;
   font-size: 20px;
-  background-color: black;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 .box6 {
   background-color: grey;
 }
 
+#menu,
+#percentage {
+  width: 40%;
+}
+
 .container {
   display: flex;
-  min-height: 96vh;
-  min-width: 100vw;
-
+  /* min-height: 96vh;
+  min-width: 100vw; */
   transition-property: all;
   transition-duration: 0.7s;
   transition-timing-function: ease-in-out;
+  min-height: 92vh;
 }
 
-.subContainerOne,
-.subContainerTwo {
+.header {
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  justify-content: space-between;
+  border: 0.25px solid black;
+}
+#previous-section,
+#next-section {
+  border-left: 0.25px solid black;
+  border-right: 0.25px solid black;
+  width: 20%;
+}
+
+.number {
+  text-align: center;
 }
 
 .grid0 {
-  background-color: black;
   text-align: center;
   padding: 0.25rem;
   align-self: center;
@@ -41,15 +55,16 @@ body {
   flex: 1;
 }
 
+/*
 .grid1:hover,
 .grid2:hover {
   flex: 100;
   transition: all;
   transition-duration: 1s;
 }
+*/
 
 .header {
-  background-color: black;
   text-align: center;
 }
 
@@ -57,21 +72,58 @@ body {
   border: 0.25px solid black;
   box-shadow: inset 0 0 10px #696767;
   padding: 0.5rem;
-  flex-grow: 1;
+  flex: 1;
+  /* flex-grow: 1; */
+  display: none;
 }
 
+.menu-content {
+  opacity: 0;
+  /* transform: translate3d(0, -15px, 0); */
+  /* transition: all 150ms linear; */
+  color: black;
+  z-index: 100;
+  position: absolute;
+  height: 100vh;
+}
+
+.subContainer {
+  transition: 1s;
+}
+
+.subContainerOne {
+  background-color: blue;
+  flex: 1;
+}
+.subContainerTwo {
+  background-color: yellow;
+  flex: 1;
+}
+
+.subContainerThree {
+  background-color: red;
+  flex: 1;
+}
+
+.subContainerFour {
+  background-color: green;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: 0.25px solid black;
+}
+
+/*
 .box:hover {
   flex: 10;
   transition: all;
   transition-duration: 1s;
 }
-
-.subContainerOne {
-  background-color: red;
-}
-.subContainerTwo {
-  background-color: blue;
-}
+*/
 
 /* .box:hover {
   background-color: indigo;

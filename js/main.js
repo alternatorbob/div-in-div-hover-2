@@ -32,14 +32,22 @@ for (let i = 0; i < subCont.length; i++) {
   })
 }
 
-const curSec = document.getElementById('current-section')
-curSec.addEventListener('mouseover', (e) => {
-  curSec.style.flex = 0
+const curSec = document.getElementsByClassName('current-section')[0]
+curSec.addEventListener('click', (e) => {
+  curSec.style.flex = '0 1 0%'
+  curSec.style.fontSize = '20px'
   for (let i = 0; i < boxes.length; i++) {
     const element = boxes[i]
+    console.log(element)
     element.classList.remove('hidden')
   }
-  console.log(e)
+})
+
+curSec.addEventListener('click', (e) => {
+  // curSec.style.flex = 10
+  for (let i = 0; i < boxes.length; i++) {
+    // boxes[i].classList.add('hidden')
+  }
 })
 
 const myWrapper = document.getElementsByClassName('wrapper')[0]

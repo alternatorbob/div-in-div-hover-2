@@ -23,7 +23,6 @@ body {
 .container {
   display: flex;
   flex-flow: column wrap;
-  transition-all: 0.55s;
   transition-timing-function: ease-in-out;
   /* align-items: stretch; */
   flex: 1;
@@ -84,7 +83,7 @@ body {
   flex-flow: column wrap;
   border: 0.25px solid black;
   justify-content: center;
-  transition: .55s;
+  transition: 0.55s;
 }
 
 .footer {
@@ -114,16 +113,21 @@ body {
 
 img {
   margin-top: -2rem;
-  max-width: 50%;
+  max-width: 60%;
   height: auto;
 }
 
-#current-section {
+.current-section {
+  display: flex;
   text-align: center;
   background-color: #b79588;
   border-left: 0.25px solid black;
   border-right: 0.25px solid black;
-  flex: 80;
+  flex: 60 1 30%;
+  font-size: 120px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .nav {

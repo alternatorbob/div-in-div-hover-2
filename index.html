@@ -5,49 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/reset.css" />
+    <!-- <link rel="stylesheet" href="css/reset.css" /> -->
     <link rel="stylesheet" href="css/font-sheet.css" />
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <div class="header">
-      <div id="menu">
-        MENU
-        <div class="menu-content hidden">
-          test <br />
-          test
-        </div>
-      </div>
-      <div id="previous-section">HEADER</div>
-      <div id="percentage">5%</div>
-    </div>
-    <div class="container">
-      <div class="subContainer subContainerOne" id="0">
-        <div class="grid">
-          <div class="box">A</div>
-          <div class="box">B</div>
-          <div class="box">C</div>
-        </div>
+    <div class="wrapper">
+      <div class="header nav">
+        <div id="menu">MENU</div>
+        <div id="previous-section">PREVIOUS</div>
+        <div id="percentage">5%</div>
       </div>
 
-      <div class="subContainer subContainerTwo" id="1">
-        <div class="grid">
-          <div class="box" id="customBox">A</div>
-          <div class="box">B</div>
+      <div class="container">
+        <div class="nav" id="current-section">Growth</div>
+        <div class="contentContainer">
+          <div class="subContainer" id="0">
+            <div class="box hidden">
+              <div class="infoText">Testing title sentence ...</div>
+              <img src="/resources/illus/STEPS-3.png" alt="" />
+            </div>
+          </div>
+
+          <div class="subContainer" id="1">
+            <div class="box hidden">
+              <div class="infoText">Testing title sentence ...</div>
+              <img src="/resources/illus/STEPS-4.png" alt="" />
+            </div>
+          </div>
+
+          <div class="subContainer" id="2">
+            <div class="box hidden">
+              <div class="infoText">Testing title sentence ...</div>
+              <img src="/resources/illus/STEPS-5.png" alt="" />
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="subContainer subContainerThree" id="2">
-        <div class="grid">
-          <div class="box">A</div>
-          <div class="box">B</div>
-          <div class="box">C</div>
-        </div>
+      <div class="footer nav">
+        <div id="next-section">FOLLOWING</div>
       </div>
-    </div>
-
-    <div class="footer">
-      <div id="next-section">FOOTER</div>
     </div>
 
     <script src="js/main.js"></script>

@@ -51,11 +51,12 @@ curSec.addEventListener('click', (e) => {
 })
 
 const myWrapper = document.getElementsByClassName('wrapper')[0]
+const mainContainer = document.querySelector('main.container')
 
 document.addEventListener('scroll', (e) => {
   console.log('scrolling')
   console.log(e)
-})
+}, true)
 
 /*
 document.getElementById('menu').addEventListener('mouseover', () => {

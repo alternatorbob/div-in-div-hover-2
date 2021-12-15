@@ -1,7 +1,13 @@
-export class ConterMaker() {
- constructor(title, content, image) {
-  this.title = title
-  this.content = content
-  this.image = image
- }
-}
+export const SECTIONS = [
+  {
+    title: 'Vision',
+    colour: 'green = #809E8C',
+    content: [
+      {
+        subtitle: 'subtitle',
+        text: 'Lorem Ipsum',
+        images: ['img-path1', 'img-path2'],
+      },
+    ],
+  },
+]

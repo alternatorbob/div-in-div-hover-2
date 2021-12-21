@@ -66,22 +66,12 @@ SECTIONS.map((project, idx) => {
 for (let i = 0; i < sections.length; i++) {
   let mySection = document.getElementById(`${sections[i]}`)
   mySection.addEventListener('click', () => {
-    // mySection.classList.add('inactive')
-    // mySection.childNodes[0].style.fontSize = '0'
-    // mySection.childNodes[0].style.transition = '.5s'
-    // mySection.childclassList.add('inactive')
+    mySection.classList.add('inactive')
   })
 
   if (!sections[i].includes(activeSection)) {
     // sections[i].classList.add('inactive')
     console.log(sections[i])
-    mySection.classList.add('inactive')
-    /*
-    const curDiv = document.querySelector(`#${activeSection}`)
-    // document.querySelector(`#${activeSection}`).style.border = '1px solid red'
-    curDiv.classList.add('active')
-    curDiv.style.border = '1px solid red'
-    */
   }
 }
 

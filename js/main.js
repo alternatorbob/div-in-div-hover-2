@@ -4,7 +4,7 @@ let sections = []
 
 let currentTab = -1
 
-let activeSection = 'formal-studies'
+let activeSection = 'intro'
 
 let isTitle = true
 let scrollStarted,
@@ -45,19 +45,33 @@ const logSections = () => {
 SECTIONS.map((project, idx) => {
   const title = document.createElement('section')
   title.id = `${project.title.replace(/\s+/g, '-').toLowerCase()}`
-  title.classList.add('title-section', 'deactive')
+  title.classList.add('title-section')
   title.innerHTML = project.title
   title.style.background = `${project.colour.substring(0, 7)}`
   document.querySelector('.wrapper').appendChild(title)
+  document
+    .querySelector('.wrapper')
+    .insertBefore(title, document.querySelector('.footer'))
   sections.push(`${project.title.replace(/\s+/g, '-').toLowerCase()}`)
+
+  if (title.id.includes(`${activeSection}`)) {
+    console.log('active: ', activeSection)
+  }
 })
 
 for (let i = 0; i < sections.length; i++) {
+  let mySection = document.getElementById(`${sections[i]}`)
+  mySection.addEventListener('click', () => {
+    mySection.classList.add('inactive')
+  })
+  console.log(sections[i])
   if (sections[i].includes(activeSection)) {
     const curDiv = document.querySelector(`#${activeSection}`)
     // document.querySelector(`#${activeSection}`).style.border = '1px solid red'
     curDiv.classList.add('active')
     curDiv.style.border = '1px solid red'
+  } else {
+    // sections[i].classList.add('inactive')
   }
 }
 

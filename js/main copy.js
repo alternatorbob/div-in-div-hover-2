@@ -1,148 +1,269 @@
 import { SECTIONS } from './Sections.js'
 
+let sections = []
+
 let currentTab = -1
-let isTitle = true
+
+let activeSection = 'intro'
+let previousSection = sections[sections.length - 1]
+let state = 'title'
+let lastAction
+
 let scrollStarted,
   wasClicked = false
-
-// const sections = ['growth', 'advantages', 'formal-studies', 'recycling']
-
-let myTitles = [
-  'Mycelium compared to concrete',
-  'Durability and Beauty',
-  'Title number three',
-  'And one last one',
-]
 
 let pointerX,
   pointerY = -1
 
-// for (let i = 0; i < sections.length; i++) {
-//   let val = sections[i]
-//   switch (val) {
-//     case 'growth':
-//       console.log('growth')
-//       break
-//     case 'advantages':
-//       console.log('advantages')
-//       break
-//     case 'formal-studies':
-//       console.log('formal-studies')
-//       break
-//     case 'recycling':
-//       console.log('recycling')
-//       break
-//   }
-// }
+const logSections = () => {
+  for (let i = 0; i < sections.length; i++) {
+    let val = sections[i]
+    switch (val) {
+      case 'growth':
+        console.log('growth')
+        break
+      case 'advantages':
+        console.log('advantages')
+        break
+      case 'formal studies':
+        console.log('formal studies')
+        break
+      case 'recycling':
+        console.log('recycling')
+        break
+    }
+  }
+}
 
-SECTIONS.map((project, idx) => {
-  console.log(project.title)
+SECTIONS.map((project) => {
+  const section = document.createElement('section')
+  section.id = `${project.title.replace(/\s+/g, '-').toLowerCase()}`
+  section.classList.add('section')
+
+  const titleText = document.createElement('div')
+  titleText.innerHTML = project.title
+  titleText.classList.add('titleText')
+  section.appendChild(titleText)
+
+  section.style.background = `${project.colour.substring(0, 7)}`
+
+  document
+    .querySelector('.wrapper')
+    .insertBefore(section, document.querySelector('.footer'))
+  sections.push(`${project.title.replace(/\s+/g, '-').toLowerCase()}`)
 })
 
-function updateSection() {}
+for (let i = 0; i < SECTIONS.length; i++) {
+  let mySection = document.getElementById(`${sections[i]}`)
+  // const grid = document.createElement('div')
+  // grid.innerHTML = 'grid'
+  // mySection.appendChild(grid)
+  // grid.classList.add('grid')
+
+  const subContainer = document.createElement('div')
+  subContainer.classList.add('subContainer')
+  subContainer.id = `sub-${SECTIONS[i].title
+    .replace(/\s+/g, '-')
+    .toLowerCase()}`
+  mySection.appendChild(subContainer)
+
+  for (let j = 0; j < SECTIONS[i].content.length; j++) {
+    const box = document.createElement('div')
+    box.id = `sub-${SECTIONS[i].title.replace(/\s+/g, '-').toLowerCase()}`
+
+    box.classList.add('box')
+    // box.innerHTML = SECTIONS.content[j].subtitle
+    box.innerHTML = j + 1
+    subContainer.appendChild(box)
+  }
+
+  if (!sections[i].includes(activeSection)) {
+    mySection.classList.add('inactive')
+    document.querySelector(`#sub-${sections[i]}`).classList.add('inactive')
+  } else {
+    mySection.children[0].classList.add('titleActive')
+  }
+}
+
+document.addEventListener('keydown', keyChange)
+
+function keyChange(e) {
+  switch (e.code) {
+    case 'ArrowDown':
+      //advance website
+      lastAction = 'ArrowDown'
+      changeState()
+      break
+    case 'ArrowUp':
+      //go back in website
+      lastAction = 'ArrowUp'
+      changeState()
+      break
+  }
+}
 
 const subCont = Array.from(document.getElementsByClassName('subContainer'))
-addNumbers()
-// addContent()
 const titles = Array.from(document.getElementsByClassName('title'))
 const boxes = Array.from(document.getElementsByClassName('box'))
 
 const curSec = document.getElementsByClassName('title-section')[0]
 
-document.querySelector('#growth').addEventListener('click', (e) => {
-  curSec.style.flex = '0 1 0%'
-  curSec.style.transition = '.4s'
-  curSec.style.fontSize = '20px'
-  for (let i = 0; i < boxes.length; i++) {
-    const e = boxes[i]
-    e.classList.remove('hidden')
-  }
-  wasClicked = true
-  setTimeout(startScroll, 1500)
-  pointerCheck()
-})
+function changeState() {
+  let actSect = document.querySelector(`#${activeSection}`)
+  let prevSect = document.querySelector(`#${previousSection}`)
 
-function startScroll() {
-  console.log('scroll started')
+  console.log(actSect)
+  console.log(prevSect)
+  switch (state) {
+    case 'title':
+      //select title, apply title state
+      switch (lastAction) {
+        case 'ArrowDown':
+          //Show Content
+          actSect.children[0].classList.remove('titleActive')
+          actSect.children[0].classList.add('titleInactive')
+          actSect.children[1].classList.remove('contentInactive')
+          actSect.children[1].classList.add('contentActive')
+          break
+        case 'ArrowUp':
+          //PREVIOUS Section
+          //Update Active Section
+          if (sections[sections.indexOf(activeSection)].includes(sections[0])) {
+            previousSection = sections[sections.indexOf(activeSection)]
+            activeSection = sections[sections.length - 1]
+          } else {
+            previousSection = sections[sections.indexOf(activeSection)]
+            prevSect = document.querySelector(`#${previousSection}`)
+            activeSection = sections[sections.indexOf(activeSection) - 1]
+            actSect = document.querySelector(`#${activeSection}`)
 
-  for (let i = 0; i < subCont.length; i++) {
-    // console.log('Width:  ' + subCont[i].offsetWidth)
-    // console.log('Height: ' + subCont[i].offsetHeight)
-    // console.log('bounding: ' + subCont[i].getBoundingClientRect())
+            prevSect.classList.remove('active')
+            prevSect.classList.add('inactive')
+            actSect.classList.remove('inactive')
+            actSect.classList.add('active')
 
-    for (var key in subCont[i]) {
-      if (typeof subCont[0][key] !== 'function') {
-        // console.log(`${key} : ${subCont[0][key]}`)
+            const object = document.querySelector(
+              `#${previousSection}`
+            ).childNodes
+            console.log(object)
+            object.forEach((element) => {
+              element.classList.add('dissapear')
+            })
 
-        console.log(subCont[1].getBoundingClientRect().x)
-        console.log(subCont[1].getBoundingClientRect().y)
+            document
+              .querySelector(`#sub-${activeSection}`)
+              .classList.remove('inactive')
+            document
+              .querySelector(`#sub-${activeSection}`)
+              .classList.add('active')
 
-        // console.log('pointerX: ' + pointerX)
-        // console.log('pointerY: ' + pointerY)
-        // console.log('offsetTop:' + subCont[0].offsetTop)
-        // console.log('offsetLeft:' + subCont[0].offsetLeft)
-        // console.log('offsetWidth:' + subCont[0].offsetWidth)
-        // console.log('offsetHeight:' + subCont[0].offsetHeight)
+            // updateSection()
+          }
+          console.log(`new active section is: ${activeSection}`)
+          break
       }
-      if (
-        pointerX >= subCont[1].offsetLeft &&
-        pointerX <=
-          subCont[1].getBoundingClientRect().x + subCont[1].offsetWidth
-      )
-        subCont[1].style.flex = '50'
-      currentTab = 1
-      // removeContent(i)
-      /*
-       &&
-        pointerY >= subCont[1].offsetHeight &&
-        pointerY <= subCont[1].offsetTop
-        */
-    }
+      state = 'content'
+      break
 
-    subCont[i].addEventListener('mouseover', (e) => {
-      if (scrollStarted) {
-        subCont[i].style.flex = '50'
-        currentTab = i
-        removeContent(i)
+    case 'content':
+      //select content, apply content state
+      switch (lastAction) {
+        case 'ArrowDown':
+          //NEXT Section
+          //Update Active Section
+          if (
+            sections[sections.indexOf(activeSection)] ===
+            sections[sections.length - 1]
+          ) {
+            console.log('end of sections')
+            previousSection = sections[sections.indexOf(activeSection)]
+            activeSection = sections[0]
+          } else {
+            previousSection = sections[sections.indexOf(activeSection)]
+            prevSect = document.querySelector(`#${previousSection}`)
+            activeSection = sections[sections.indexOf(activeSection) + 1]
+            actSect = document.querySelector(`#${activeSection}`)
+
+            // updateSection()
+            prevSect.classList.remove('active')
+            prevSect.classList.add('inactive')
+            actSect.classList.remove('inactive')
+            actSect.classList.add('active')
+
+            const object = document.querySelector(
+              `#${previousSection}`
+            ).childNodes
+            console.log(object)
+            object.forEach((element) => {
+              element.classList.add('dissapear')
+            })
+            document
+              .querySelector(`#sub-${activeSection}`)
+              .classList.remove('inactive')
+            document
+              .querySelector(`#sub-${activeSection}`)
+              .classList.add('active')
+          }
+          console.log(`new active section is: ${activeSection}`)
+
+          break
+        case 'ArrowUp':
+          //Show Title
+          actSect.children[1].classList.remove('contentActive')
+          actSect.children[1].classList.add('contentInactive')
+          actSect.children[0].classList.remove('titleInactive')
+          actSect.children[0].classList.add('titleActive')
+          break
       }
-    })
+
+      state = 'title'
+      break
   }
 
-  for (let i = 0; i < subCont.length; i++) {
-    subCont[i].addEventListener('mouseout', () => {
-      subCont[i].style.flex = '1'
-      addContent(currentTab)
-      currentTab = -1
-    })
-  }
+  const curSec = SECTIONS[sections.indexOf(activeSection)]
 }
 
-function pointerCheck(e) {
-  pointerX = (e || event).clientX
-  pointerY = (e || event).clientY
-  if (document.documentElement.scrollTop > 0) {
-    pointerY = pointerY + document.documentElement.scrollTop
-  }
-  console.log(pointerX, pointerY)
-  document.onmousemove = (event) => {
-    if (
-      pointerX + 5 == event.clientX ||
-      pointerX - 5 == event.clientX ||
-      pointerY + 5 == event.clientY ||
-      (pointerY - 5 == event.clientY && !scrollStarted)
-    ) {
-      // console.log(pointerX, pointerY)
-      // console.log('eventX: ' + event.clientX, 'eventY: ' + event.clientY)
-      console.log('mouse has been moved')
-      scrollStarted = true
-    }
-  }
-  if (scrollStarted) startScroll()
+// function updateContent(act, prev, children) {
+
+
+// }
+
+function updateSection() {
+  const mySection = document.querySelector(`#${activeSection}`)
+  console.log('update: ', mySection)
+  document.querySelector(`#${previousSection}`).classList.remove('active')
+  document.querySelector(`#${previousSection}`).classList.add('inactive')
+  const object = document.querySelector(`#${previousSection}`).childNodes
+  console.log(object)
+  object.forEach((element) => {
+    element.classList.add('dissapear')
+  })
+
+  mySection.classList.remove('inactive')
+  mySection.classList.add('active')
+  document.querySelector(`#sub-${activeSection}`).classList.remove('inactive')
+  document.querySelector(`#sub-${activeSection}`).classList.add('active')
+
+  mySection.children[1].classList.add('contentInactive')
+  mySection.children[1].classList.remove('contentActive')
+  mySection.children[0].classList.remove('titleInactive')
+  mySection.children[0].classList.add('titleActive')
 }
 
-const myWrapper = document.getElementsByClassName('wrapper')[0]
-const mainContainer = document.querySelector('main.container')
+//——-DEBUG
 
+// document.addEventListener('mouseover', (e) => {
+//   console.log(e.target.style.opacity)
+// })
+
+// mySection.addEventListener('click', () => {
+//   mySection.classList.add('inactive')
+//   document.querySelector(`#sub-${sections[i]}`).classList.add('inactive')
+// })
+
+//————————————————————————
+
+/*
 function addNumbers() {
   for (let i = 0; i < subCont.length; i++) {
     const myDiv = document.createElement('div')
@@ -171,9 +292,4 @@ function removeContent(current) {
     }
   }
 }
-
-//——-DEBUG
-
-// document.addEventListener('mouseover', (e) => {
-//   console.log(e.target.style.opacity)
-// })
+*/

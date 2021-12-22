@@ -13,12 +13,22 @@ export const SECTIONS = [
         text: 'To use the site hover in the cases, discover as much info as possible',
         images: ['img-path1', 'img-path2'],
       },
+      {
+        subtitle: 'Third Section for test',
+        text: 'Third section for testing how the grid will align',
+        images: ['img-path1', 'img-path2'],
+      },
     ],
   },
   {
     title: 'Growth',
     colour: '#B79588 [ brown ]',
     content: [
+      {
+        subtitle: 'subtitle',
+        text: 'Lorem Ipsum',
+        images: ['img-path1', 'img-path2'],
+      },
       {
         subtitle: 'subtitle',
         text: 'Lorem Ipsum',
@@ -35,6 +45,11 @@ export const SECTIONS = [
         text: 'Lorem Ipsum',
         images: ['img-path1', 'img-path2'],
       },
+      {
+        subtitle: 'subtitle',
+        text: 'Lorem Ipsum',
+        images: ['img-path1', 'img-path2'],
+      },
     ],
   },
   {
@@ -46,12 +61,22 @@ export const SECTIONS = [
         text: 'Lorem Ipsum',
         images: ['img-path1', 'img-path2'],
       },
+      {
+        subtitle: 'subtitle',
+        text: 'Lorem Ipsum',
+        images: ['img-path1', 'img-path2'],
+      },
     ],
   },
   {
     title: 'Recycling',
     colour: '#F09FC3 [ pink ]',
     content: [
+      {
+        subtitle: 'subtitle',
+        text: 'Lorem Ipsum',
+        images: ['img-path1', 'img-path2'],
+      },
       {
         subtitle: 'subtitle',
         text: 'Lorem Ipsum',

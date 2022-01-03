@@ -15,26 +15,6 @@ let scrollStarted,
 let pointerX,
   pointerY = -1
 
-const logSections = () => {
-  for (let i = 0; i < sections.length; i++) {
-    let val = sections[i]
-    switch (val) {
-      case 'growth':
-        console.log('growth')
-        break
-      case 'advantages':
-        console.log('advantages')
-        break
-      case 'formal studies':
-        console.log('formal studies')
-        break
-      case 'recycling':
-        console.log('recycling')
-        break
-    }
-  }
-}
-
 SECTIONS.map((project) => {
   const section = document.createElement('section')
   section.id = `${project.title.replace(/\s+/g, '-').toLowerCase()}`
@@ -113,6 +93,12 @@ function changeState() {
   let actSect = document.querySelector(`#${activeSection}`)
   let prevSect = document.querySelector(`#${previousSection}`)
 
+  const actTit = document.querySelector(`#tit-${activeSection}`)
+  const actSub = document.querySelector(`#sub-${activeSection}`)
+
+  const prevTit = document.querySelector(`#tit-${previousSection}`)
+  const prevSub = document.querySelector(`#sub-${previousSection}`)
+
   switch (state) {
     case 'title':
       //select title, apply title state
@@ -135,10 +121,8 @@ function changeState() {
           } else {
             activeSection = sections[sections.indexOf(activeSection) - 1]
           }
-          // console.log('activeSection: ', activeSection)
-          // console.log('previousSection: ', previousSection)
           console.log('show content')
-          changeSection()
+          changeSection(lastAction)
 
           break
       }
@@ -160,11 +144,8 @@ function changeState() {
           } else {
             activeSection = sections[sections.indexOf(activeSection) + 1]
           }
-          // console.log('activeSection: ', activeSection)
-          // console.log('previousSection: ', previousSection)
-
           //Update Active Section
-          changeSection()
+          changeSection(lastAction)
           break
         case 'ArrowUp':
           //Show Title
@@ -180,7 +161,7 @@ function changeState() {
   }
 }
 
-function changeSection() {
+function changeSection(lastAct) {
   //GET all the divs we need to show and hide
   const actSect = document.querySelector(`#${activeSection}`)
   const actTit = document.querySelector(`#tit-${activeSection}`)
@@ -197,15 +178,25 @@ function changeSection() {
 
   prevTit.classList.remove('titleActive')
   prevTit.classList.add('titleInactive')
+  prevTit.classList.add('titleHidden')
+
+  actTit.classList.remove('titleHidden')
   actTit.classList.remove('titleInactive')
   actTit.classList.add('titleActive')
 
   prevSub.classList.remove('contentActive')
   prevSub.classList.add('contentInactive')
-  actSub.classList.remove('contentInactive')
-  actSub.classList.add('contentActive')
+  if (lastAct == 'ArrowUp') {
+    actSub.classList.remove('contentInactive')
+    actSub.classList.add('contentActive')
+    actTit.classList.remove('titleActive')
+    actTit.classList.add('titleInactive')
+  }
 
-  console.log(actSect, prevSect)
+  actSub.classList.remove('inactive')
+  actSub.classList.add('active')
+  prevSub.classList.remove('active')
+  prevSub.classList.add('inactive')
 }
 
 function updateSection() {

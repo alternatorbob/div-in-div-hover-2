@@ -1,0 +1,6 @@
+On landing page use percetange bar to inform on how 
+the site is used, after 5 seconds of no interaction 
+start 'flashing' the text by inverting text and background 
+
+"SCROLL TO CHANGE SECTION, HOVER TO DISCOVER"
+

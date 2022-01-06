@@ -67,6 +67,28 @@ for (let i = 0; i < SECTIONS.length; i++) {
 }
 
 document.addEventListener('keydown', keyChange)
+let counter = 0
+
+function scrollListener() {
+  if (event.deltaY < 0) {
+    lastAction = 'ArrowUp'
+    changeState()
+  } else if (event.deltaY > 0) {
+    lastAction = 'ArrowDown'
+    changeState()
+  }
+}
+window.addEventListener('wheel', throttle(scrollListener, 1150))
+
+function throttle(fn, wait) {
+  var time = Date.now()
+  return function () {
+    if (time + wait - Date.now() < 0) {
+      fn()
+      time = Date.now()
+    }
+  }
+}
 
 function keyChange(e) {
   switch (e.code) {
@@ -105,7 +127,7 @@ function changeState() {
       switch (lastAction) {
         case 'ArrowDown':
           //Show Content
-          console.log('show content')
+          // console.log('show content')
           actSect.children[0].classList.remove('titleActive')
           actSect.children[0].classList.add('titleInactive')
           actSect.children[1].classList.remove('contentInactive')
@@ -117,11 +139,11 @@ function changeState() {
           previousSection = activeSection
           if (sections[sections.indexOf(activeSection)].includes(sections[0])) {
             activeSection = sections[sections.length - 1]
-            console.log('start of section')
+            // console.log('start of section')
           } else {
             activeSection = sections[sections.indexOf(activeSection) - 1]
           }
-          console.log('show content')
+          // console.log('show content')
           changeSection(lastAction)
 
           break
@@ -149,7 +171,7 @@ function changeState() {
           break
         case 'ArrowUp':
           //Show Title
-          console.log('show title')
+          // console.log('show title')
           actSect.children[1].classList.remove('contentActive')
           actSect.children[1].classList.add('contentInactive')
           actSect.children[0].classList.remove('titleInactive')

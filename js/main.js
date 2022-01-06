@@ -77,7 +77,7 @@ function scrollListener() {
     changeState()
   }
 }
-window.addEventListener('wheel', throttle(scrollListener, 1150))
+window.addEventListener('wheel', throttle(scrollListener, 1200))
 
 function throttle(fn, wait) {
   var time = Date.now()

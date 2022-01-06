@@ -102,6 +102,7 @@ img {
 
 .box {
   border: 0.25px solid black;
+  transition: 1s;
 }
 
 .menu-content {

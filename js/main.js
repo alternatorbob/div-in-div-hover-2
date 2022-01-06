@@ -67,7 +67,6 @@ for (let i = 0; i < SECTIONS.length; i++) {
 }
 
 document.addEventListener('keydown', keyChange)
-let counter = 0
 
 function scrollListener() {
   if (event.deltaY < 0) {
